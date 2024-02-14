@@ -2,7 +2,7 @@ import random
 
 # Define the target string
 targetString = "HK_Urdahl*__200135"
-
+leastFitIndex = 99999999999999999
 # Define genetic algorithm parameters
 sizeOfPopulation = 100
 mutation_rate = 0.01
@@ -63,10 +63,13 @@ while True:
     bestFit = population[indexOfBestFit]
     bestFitness = allFitnessScores[indexOfBestFit]
 
-    # Print current generation and best fit
+    # Print stats
+    print(f"------------------------------------------------------------")
     print(f"The current generation {generation}: ")
-    #print(f"The best fit, of the current generation {generation} is {bestFit}")
-    #print(f"The fitness score of {bestFit} is {bestFitness}")
+    print(f"The best performer has index {indexOfBestFit}")
+    print(f"The worst performer has index {leastFitIndex} and is {population[allFitnessScores.index(min(allFitnessScores))]}")
+    print(f"The best fit, of the current generation {generation} is {bestFit}")
+    print(f"The fitness score of {bestFit} is {bestFitness}")
 
     # Ending the while-loop if the program found the solution
     if bestFit == targetString:

@@ -2,12 +2,12 @@ import random
 
 # Define the target string
 targetString = "HK_Urdahl*__200135"
-
+leastFitIndex = 99999999999999999
 # Define genetic algorithm parameters
 sizeOfPopulation = 100
 mutation_rate = 0.01
-
-indivdsToBeReplcd = 9
+crossoverRate = 0.5
+indivdsToBeReplcd = 500
 
 # Define the genes (characters) available for the individuals
 genes = "abcdefghijklmnopqrstuvwxyzæøåABCDEFGHIJKLMNOPQRSTUVWXYZ_0123456789*"
@@ -20,7 +20,9 @@ def generateIndividual():
         # Then it gets appended to the individual
         individual += random.choice(genes)
     return individual
-# Function to calculate fitness
+
+
+# Function to calculate fitness of each individual
 def calculateFitness(individual):
     num_matches = 0
     # Loop through each character and check if it is the same as the character,
@@ -34,11 +36,14 @@ def calculateFitness(individual):
     return fitness
 
 # Function to perform crossover
-def crossover(parent1, parent2):
-    pointOfCrossover = random.randint(0, len(targetString) - 1)
-    # Create the child by combining two induvidual parts of the parents
-    # The parents has been split at a random point
-    child = parent1[:pointOfCrossover] + parent2[pointOfCrossover:]
+#Link: https://medium.com/@samiran.bera/crossover-operator-the-heart-of-genetic-algorithm-6c0fdcb405c0
+def crossoverUniform(parent1, parent2):
+    child = ''
+    for gene1, gene2 in zip(parent1, parent2):
+        if random.random() < crossoverRate:
+            child += gene1  #get parent 1 gene
+        else:
+            child += gene2  #get parent 2 gene
     return child
 
 # Function to perform mutation
@@ -55,6 +60,8 @@ generation = 0
 while True:
     # Calculate fitness for each individual and puts them in a list
     allFitnessScores = [calculateFitness(individual) for individual in population]
+
+
     #print(allFitnessScores)
     #print(population)
     # Finding index of the most fit individual, inside the list
@@ -65,34 +72,31 @@ while True:
     bestFit = population[indexOfBestFit]
     bestFitness = allFitnessScores[indexOfBestFit]
 
-    # Print current generation and best fit
+    # results
+    print(f"------------------------------------------------------------")
     print(f"The current generation {generation}: ")
-    #print(f"The best fit, of the current generation {generation} is {bestFit}")
-    #print(f"The fitness score of {bestFit} is {bestFitness}")
+    print(f"The best performer has index {indexOfBestFit}")
+    print(f"The worst performer has index {leastFitIndex}")
+    print(f"The best fit, of the current generation {generation} is {bestFit}")
+    print(f"The fitness score of {bestFit} is {bestFitness}")
 
     # Ending the while-loop if the program found the solution
     if bestFit == targetString:
         print("Solution found!")
         break
 
-    for ind in range(indivdsToBeReplcd):
-        # Select parents based on fitness scores
-        # The parents with the best fitness will have the biggest chanse to get selected
-        parents = random.choices(population, weights=allFitnessScores, k=2)
+    #for ind in range(indivdsToBeReplcd):
+    # Select parents based on fitness scores
+    # The parents with the best fitness will have the biggest chanse to get selected
+    parents = random.choices(population, weights=allFitnessScores, k=2)
 
-        # Perform crossover
-        child = crossover(parents[0], parents[1])
-        child = mutate(child)
+    # Perform crossover and mutation to create new individuals
+    child = crossoverUniform(parents[0], parents[1])
+    child = mutate(child)
 
-        # Find the index of the least fit individual
-        leastFitIndex = allFitnessScores.index(min(allFitnessScores))
-
-        # Using the index number to replace
-        # the least fit individual in the population
-        population[leastFitIndex] = child
-
-        # Recalculate fitness, for the next iteration of the for-loop
-        allFitnessScores = [calculateFitness(individual) for individual in population]
+    # Replace the least fit individual in the population with the new child
+    leastFitIndex = allFitnessScores.index(min(allFitnessScores))
+    population[leastFitIndex] = child
 
     # counter
     generation += 1
