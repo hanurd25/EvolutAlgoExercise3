@@ -1,67 +1,88 @@
 import random
 
 # Define the target string
-target_string = "HK_Urdahl*__200135"
+targetString = "HK_Urdahl*__200135"
 
 # Define genetic algorithm parameters
-population_size = 100
+sizeOfPopulation = 100
 mutation_rate = 0.01
 
 # Define the genes (characters) available for the individuals
 genes = "abcdefghijklmnopqrstuvwxyzæøåABCDEFGHIJKLMNOPQRSTUVWXYZ_0123456789*"
 
 # Function to generate a random individual
-def generate_individual():
-    return ''.join(random.choice(genes) for _ in range(len(target_string)))
-
+def generateIndividual():
+    individual = ""
+    for _ in range(len(targetString)):
+        # Select a random gene from the pool of possible genes
+        # Then it gets appended to the individual
+        individual += random.choice(genes)
+    return individual
 # Function to calculate fitness
-def calculate_fitness(individual):
-    return sum(1 for a, b in zip(individual, target_string) if a == b) / len(target_string)
+def calculateFitness(individual):
+    num_matches = 0
+    # Loop through each character and check if it is the same as the character,
+    # with the same index position, in the
+    for a, b in zip(individual, targetString):
+        if a == b:
+            # If they match, increse the counter
+            num_matches += 1
+    fitness = num_matches / len(targetString)
+    #the maximum fitness score is always going to be one.
+    return fitness
 
 # Function to perform crossover
 def crossover(parent1, parent2):
-    crossover_point = random.randint(0, len(target_string) - 1)
-    child = parent1[:crossover_point] + parent2[crossover_point:]
+    pointOfCrossover = random.randint(0, len(targetString) - 1)
+    # Create the child by combining two induvidual parts of the parents
+    # The parents has been split at a random point
+    child = parent1[:pointOfCrossover] + parent2[pointOfCrossover:]
     return child
 
 # Function to perform mutation
 def mutate(individual):
-    mutated_index = random.randint(0, len(target_string) - 1)
-    mutated_gene = random.choice(genes)
-    return individual[:mutated_index] + mutated_gene + individual[mutated_index + 1:]
+    indexOfMutatedInduv = random.randint(0, len(targetString) - 1)
+    mutatedGene = random.choice(genes)
+    return individual[:indexOfMutatedInduv] + mutatedGene + individual[indexOfMutatedInduv + 1:]
 
 # Initialize the population
-population = [generate_individual() for _ in range(population_size)]
+population = [generateIndividual() for _ in range(sizeOfPopulation)]
 
 # Evolution loop
 generation = 0
 while True:
-    # Calculate fitness for each individual
-    fitness_scores = [calculate_fitness(individual) for individual in population]
+    # Calculate fitness for each individual and puts them in a list
+    allFitnessScores = [calculateFitness(individual) for individual in population]
+    #print(allFitnessScores)
+    print(population)
+    # Finding index of the most fit individual, inside the list
+    indexOfBestFit = allFitnessScores.index(max(allFitnessScores))
 
-    # Find the best fit individual
-    best_fit_index = fitness_scores.index(max(fitness_scores))
-    best_fit = population[best_fit_index]
-    best_fitness = fitness_scores[best_fit_index]
+    #Then using the index of the most fit individual to get the string
+    #and then score of that string
+    bestFit = population[indexOfBestFit]
+    bestFitness = allFitnessScores[indexOfBestFit]
 
     # Print current generation and best fit
-    print(f"Generation {generation}: Best fit - {best_fit}, Fitness - {best_fitness}")
+    #print(f"The current generation {generation}: ")
+    #print(f"The best fit, of the current generation {generation} is {bestFit}")
+    #print(f"The fitness score of {bestFit} is {bestFitness}")
 
-    # Terminate if the solution is found
-    if best_fit == target_string:
+    # Ending the while-loop if the program found the solution
+    if bestFit == targetString:
         print("Solution found!")
         break
 
     # Select parents based on fitness scores
-    parents = random.choices(population, weights=fitness_scores, k=2)
+    parents = random.choices(population, weights=allFitnessScores, k=2)
 
     # Perform crossover and mutation to create new individuals
     child = crossover(parents[0], parents[1])
     child = mutate(child)
 
     # Replace the least fit individual in the population with the new child
-    least_fit_index = fitness_scores.index(min(fitness_scores))
-    population[least_fit_index] = child
+    leastFitIndex = allFitnessScores.index(min(allFitnessScores))
+    population[leastFitIndex] = child
 
     # Increment generation counter
     generation += 1
