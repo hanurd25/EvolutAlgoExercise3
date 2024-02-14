@@ -7,6 +7,8 @@ targetString = "HK_Urdahl*__200135"
 sizeOfPopulation = 100
 mutation_rate = 0.01
 
+indivdsToBeReplcd = 9
+
 # Define the genes (characters) available for the individuals
 genes = "abcdefghijklmnopqrstuvwxyzæøåABCDEFGHIJKLMNOPQRSTUVWXYZ_0123456789*"
 
@@ -73,16 +75,26 @@ while True:
         print("Solution found!")
         break
 
-    # Select parents based on fitness scores
-    parents = random.choices(population, weights=allFitnessScores, k=2)
+    for ind in range(indivdsToBeReplcd):
+        # Select parents based on fitness scores
+        # The parents with the best fitness will have the biggest chanse to get selected
+        parents = random.choices(population, weights=allFitnessScores, k=2)
 
-    # Perform crossover and mutation to create new individuals
-    child = crossover(parents[0], parents[1])
-    child = mutate(child)
+        # Perform crossover
+        child = crossover(parents[0], parents[1])
+        child = mutate(child)
 
-    # Replace the least fit individual in the population with the new child
-    leastFitIndex = allFitnessScores.index(min(allFitnessScores))
-    population[leastFitIndex] = child
+        # Find the index of the least fit individual
+        leastFitIndex = allFitnessScores.index(min(allFitnessScores))
+
+        # Using the index number to replace
+        # the least fit individual in the population
+        population[leastFitIndex] = child
+
+        # Recalculate fitness, for the next iteration of the for-loop
+        allFitnessScores = [calculateFitness(individual) for individual in population]
 
     # counter
     generation += 1
+
+    # -> next iteration
