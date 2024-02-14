@@ -25,7 +25,7 @@ def calculateFitness(individual):
     # with the same index position, in the
     for a, b in zip(individual, targetString):
         if a == b:
-            # If they match, increse the counter
+            # If they match, the counter gets incresed
             num_matches += 1
     fitness = num_matches / len(targetString)
     #the maximum fitness score is always going to be one.
@@ -84,5 +84,5 @@ while True:
     leastFitIndex = allFitnessScores.index(min(allFitnessScores))
     population[leastFitIndex] = child
 
-    # Increment generation counter
+    # counter
     generation += 1
