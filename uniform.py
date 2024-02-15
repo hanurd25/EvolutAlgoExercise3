@@ -38,7 +38,7 @@ def calculateFitness(individual):
 # Function to perform crossover
 #Link: https://medium.com/@samiran.bera/crossover-operator-the-heart-of-genetic-algorithm-6c0fdcb405c0
 def crossoverUniform(parent1, parent2):
-    child = ''
+    child = '' #initialize the child as an emety string.
     for gene1, gene2 in zip(parent1, parent2):
         if random.random() < crossoverRate:
             child += gene1  #get parent 1 gene
