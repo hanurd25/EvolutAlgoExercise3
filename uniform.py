@@ -5,7 +5,7 @@ targetString = "HK_Urdahl*__200135"
 leastFitIndex = 99999999999999999
 # Define genetic algorithm parameters
 sizeOfPopulation = 100
-mutation_rate = 0.01
+mutationRate = 0.01
 crossoverRate = 0.5
 indivdsToBeReplcd = 500
 
