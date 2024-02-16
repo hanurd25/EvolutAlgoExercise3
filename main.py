@@ -1,5 +1,5 @@
 import random
-
+#this is great project
 # Define the target string
 targetString = "HK_Urdahl*__200135"
 leastFitIndex = 99999999999999999
