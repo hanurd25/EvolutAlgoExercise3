@@ -20,14 +20,14 @@ def generateIndividual():
     return individual
 # Function to calculate fitness
 def calculateFitness(individual):
-    num_matches = 0
+    numMatches = 0
     # Loop through each character and check if it is the same as the character,
     # with the same index position, in the
     for a, b in zip(individual, targetString):
         if a == b:
             # If they match, the counter gets incresed
-            num_matches += 1
-    fitness = num_matches / len(targetString)
+            numMatches += 1
+    fitness = numMatches / len(targetString)
     #the maximum fitness score is always going to be one.
     return fitness
 
