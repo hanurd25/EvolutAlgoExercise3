@@ -1,13 +1,11 @@
 import random
-#this is great project
-# Define the target string
+# Defining the target string
 targetString = "HK_Urdahl*__200135"
 leastFitIndex = 99999999999999999
 # Define genetic algorithm parameters
 sizeOfPopulation = 100
-mutation_rate = 0.01
 
-# Define the genes (characters) available for the individuals
+# Defining the genes which is available for the individuals
 genes = "abcdefghijklmnopqrstuvwxyzæøåABCDEFGHIJKLMNOPQRSTUVWXYZ_0123456789*"
 
 # Function to generate a random individual
@@ -79,11 +77,11 @@ while True:
     # Select parents based on fitness scores
     parents = random.choices(population, weights=allFitnessScores, k=2)
 
-    # Perform crossover and mutation to create new individuals
+    # Perform crossover and mutation to create new the individual
     child = crossover(parents[0], parents[1])
     child = mutate(child)
 
-    # Replace the least fit individual in the population with the new child
+    # Replacing the least fit individual in the population with the new child
     leastFitIndex = allFitnessScores.index(min(allFitnessScores))
     population[leastFitIndex] = child
 

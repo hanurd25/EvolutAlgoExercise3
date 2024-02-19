@@ -150,4 +150,4 @@ while True:
     # counter
     generation += 1
 
-    # -> next iteration
+    #next iteration
