@@ -2,10 +2,9 @@ import matplotlib.pyplot as plt
 import random
 import numpy as np
 
-# Define the target string
+# The target string
 targetString = "HK_Urdahl*__250201"
 leastFitIndex = 99999999999999999
-# Define genetic algorithm parameters
 sizeOfPopulation = 1000
 mutationRate = 0.07
 crossoverRate = 0.5
