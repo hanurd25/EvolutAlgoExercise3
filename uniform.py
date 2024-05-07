@@ -1,3 +1,14 @@
+
+##Declaration of sources:
+#The lecture notes from part B in 'Intelligente Systemer' under 'Real Coded GA' has been used as inspiration
+
+#Insperation of crossover methods: https://medium.com/@samiran.bera/crossover-operator-the-heart-of-genetic-algorithm-6c0fdcb405c0
+
+#Inspiration for the creation of the fitness function and the mutation functin: https://medium.com/@Data_Aficionado_1083/genetic-algorithms-optimizing-success-through-evolutionary-computing-f4e7d452084f
+
+#No code is directly copied
+
+##
 import matplotlib.pyplot as plt
 import random
 import numpy as np
