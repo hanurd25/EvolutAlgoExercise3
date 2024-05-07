@@ -5,6 +5,8 @@
 
 #Inspiration for the creation of the fitness function and the mutation functin: https://medium.com/@Data_Aficionado_1083/genetic-algorithms-optimizing-success-through-evolutionary-computing-f4e7d452084f
 
+
+#No code is directly copied
 ##
 import random
 # Defining the target string
