@@ -1,3 +1,11 @@
+##Declaration of sources:
+#The lecture notes from part B in 'Intelligente Systemer'
+
+#Insperation of crossover methods: https://medium.com/@samiran.bera/crossover-operator-the-heart-of-genetic-algorithm-6c0fdcb405c0
+
+#Inspiration for the creation of the fitness function and the mutation functin: https://medium.com/@Data_Aficionado_1083/genetic-algorithms-optimizing-success-through-evolutionary-computing-f4e7d452084f
+
+##
 import random
 # Defining the target string
 targetString = "HK_Urdahl*__200135"
